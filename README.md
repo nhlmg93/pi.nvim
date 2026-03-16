@@ -18,7 +18,7 @@ It's funny that all AI plugins for Neovim are quite complex to interact with, li
 
 ## Requirements
 
-- [Neovim](https://neovim.io/) 0.7+
+- [Neovim](https://neovim.io/) 0.10+
 - [pi](https://github.com/badlogic/pi-mono) installed globally: `npm install -g @mariozechner/pi-coding-agent`
 - Your preferred models availble in pi: `pi --list-models`
 
@@ -56,6 +56,9 @@ Or override with specific values:
 require("pi").setup({
   provider = "openrouter",
   model = "openrouter/free",
+  max_context_lines = 300,
+  max_context_bytes = 24000,
+  selection_context_lines = 40,
 })
 ```
 
@@ -100,6 +103,15 @@ vim.keymap.set("v", "<leader>ai", ":PiAskSelection<CR>", { desc = "Ask pi (selec
 |---------|------|-------------|
 | `:PiAsk` | Normal | Prompt for input, sends it + current buffer as context |
 | `:PiAskSelection` | Visual | Same as :PiAsk but also sends selected lines as context |
+| `:PiCancel` | Normal | Cancel the active pi request immediately |
+
+## Behavior
+
+- Runs asynchronously and keeps editing nonblocking.
+- Shows a small floating status window while pi is running.
+- Closes the float automatically on success.
+- Keeps the float open on error so you can inspect the failure.
+- Trims oversized context for speed instead of always sending the full file.
 
 
 ## License
