@@ -3,6 +3,7 @@ local context = require("pi.context")
 local runner = require("pi.runner")
 local session_mod = require("pi.session")
 local ui = require("pi.ui")
+local log = require("pi.log")
 
 local M = {}
 
@@ -105,6 +106,15 @@ local function finish_session(session, status, opts)
     active_session = nil
   end
   last_session = session
+
+  -- Log the session
+  log.append_session(
+    config.get().log_path,
+    session,
+    session.last_message,
+    status,
+    session.source_path
+  )
 end
 
 local function start_session(message, build_context)
@@ -120,6 +130,7 @@ local function start_session(message, build_context)
 
   local source_bufnr = vim.api.nvim_get_current_buf()
   local session = session_mod.new(source_bufnr)
+  session.last_message = message
   active_session = session
   last_session = session
   ui.open(session, config.get().focus_ui)
@@ -258,6 +269,28 @@ end
 
 function M._get_last_session()
   return last_session
+end
+
+function M.show_log()
+  local log_path = config.get().log_path
+  if not log_path or log_path == "" then
+    vim.notify("pi.nvim: log_path not configured", vim.log.levels.ERROR)
+    return
+  end
+
+  -- Check if file exists
+  if vim.fn.filereadable(log_path) == 0 then
+    vim.notify("pi.nvim: log file not found at " .. log_path, vim.log.levels.INFO)
+    return
+  end
+
+  vim.cmd("tabnew")
+  vim.cmd("read " .. vim.fn.fnameescape(log_path))
+  vim.cmd("1d")
+  vim.bo.modifiable = false
+  vim.bo.buftype = "nofile"
+  vim.bo.filetype = "log"
+  vim.cmd("normal! G")
 end
 
 function M.get_buffer_context()

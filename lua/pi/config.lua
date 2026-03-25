@@ -7,6 +7,7 @@ M.defaults = {
   max_context_bytes = 24000,
   selection_context_lines = 40,
   focus_ui = false,
+  log_path = "/tmp/pi-nvim.log",
 }
 
 local values = vim.deepcopy(M.defaults)

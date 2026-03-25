@@ -24,3 +24,8 @@ end, { range = true, desc = "Ask pi with visual selection as context" })
 vim.api.nvim_create_user_command("PiCancel", function()
   require("pi").cancel()
 end, { desc = "Cancel the active pi request" })
+
+-- Show the pi.nvim session log
+vim.api.nvim_create_user_command("PiLog", function()
+  require("pi").show_log()
+end, { desc = "Show pi session log" })

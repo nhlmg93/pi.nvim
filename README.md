@@ -59,8 +59,11 @@ require("pi").setup({
   max_context_lines = 300,
   max_context_bytes = 24000,
   selection_context_lines = 40,
+  log_path = "/tmp/pi-nvim.log",
 })
 ```
+
+The `log_path` setting controls where all sessions are logged. Set to `nil` or empty string to disable logging. Default: `/tmp/pi-nvim.log`.
 
 Use `pi --list-models` to see available models.
 
@@ -104,6 +107,7 @@ vim.keymap.set("v", "<leader>ai", ":PiAskSelection<CR>", { desc = "Ask pi (selec
 | `:PiAsk` | Normal | Prompt for input, sends it + current buffer as context |
 | `:PiAskSelection` | Visual | Same as :PiAsk but also sends selected lines as context |
 | `:PiCancel` | Normal | Cancel the active pi request immediately |
+| `:PiLog` | Normal | Open the session log in a new tab |
 
 ## Behavior
 
