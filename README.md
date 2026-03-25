@@ -107,7 +107,7 @@ vim.keymap.set("v", "<leader>ai", ":PiAskSelection<CR>", { desc = "Ask pi (selec
 | `:PiAsk` | Normal | Prompt for input, sends it + current buffer as context |
 | `:PiAskSelection` | Visual | Same as :PiAsk but also sends selected lines as context |
 | `:PiCancel` | Normal | Cancel the active pi request immediately |
-| `:PiLog` | Normal | Open the session log in a new tab |
+| `:PiLog` | Normal | Open the session log in a new split |
 
 ## Behavior
 

@@ -284,7 +284,7 @@ function M.show_log()
     return
   end
 
-  vim.cmd("tabnew")
+  vim.cmd("new")
   vim.cmd("read " .. vim.fn.fnameescape(log_path))
   vim.cmd("1d")
   vim.bo.modifiable = false
