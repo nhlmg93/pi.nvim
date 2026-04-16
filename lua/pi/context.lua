@@ -4,15 +4,16 @@ local SYSTEM_PROMPT = [[You are running inside the pi.nvim Neovim plugin. The us
 
 local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question using the @? directive. Your task is to ADD A COMMENT at the end of the file that answers their question.
 
-CRITICAL: ALL EXISTING CODE MUST BE PRESERVED. DO NOT DELETE ANYTHING.
-
 INSTRUCTIONS:
-1. Use the edit_file tool to ADD a comment block at the end of the file
-2. The edit should ONLY ADD new content - DO NOT replace or delete any existing lines
-3. Specify the range as starting BEYOND the current end of file (e.g., if file has 50 lines, use range 51-60 for the new comment)
-4. Use the correct comment syntax for this filetype
-5. The comment should be brief, straightforward, and use simple language
-6. After adding the comment, you are DONE - no further actions needed
+1. Use the bash tool with printf to append a comment (replace FILEPATH and COMMENT):
+   printf '\nCOMMENT\n' >> FILEPATH
+2. This safely appends to the file without touching existing content
+3. The comment should use the correct comment syntax for this filetype
+4. The comment should be brief, straightforward, and use simple language
+5. After appending, you are DONE - no further actions needed
+
+EXAMPLE for a Lua file:
+   printf '\n-- This function handles user input\n' >> /home/user/project/utils.lua
 
 Now answer the user's question by adding an appropriate comment at the end of their file.]]
 
