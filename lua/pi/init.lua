@@ -139,13 +139,18 @@ local function start_session(message, build_context)
 
   local source_bufnr = vim.api.nvim_get_current_buf()
   local session = session_mod.new(source_bufnr)
-  session.last_message = message
+
+  -- Detect directives in the message
+  local directives = context.detect_directives(message)
+  session.is_question = directives.is_question
+  session.last_message = directives.cleaned_message
+
   active_session = session
   last_session = session
   ui.open(session, config.get().focus_ui)
   set_status(session, "collecting_context")
 
-  local ok, built_context = pcall(build_context)
+  local ok, built_context = pcall(build_context, session.is_question)
   if not ok then
     finish_session(session, "error", { error = built_context })
     return
@@ -153,7 +158,7 @@ local function start_session(message, build_context)
 
   local payload = vim.json.encode({
     type = "prompt",
-    message = message .. "\n\nContext:\n" .. built_context,
+    message = directives.cleaned_message .. "\n\nContext:\n" .. built_context,
   }) .. "\n"
 
   set_status(session, "starting")
@@ -233,8 +238,8 @@ function M.prompt_with_buffer()
 
   vim.ui.input({ prompt = context.format_prompt_label(bufnr, nil) }, function(input)
     if input then
-      start_session(input, function()
-        return context.get_buffer_context(bufnr, config.get())
+      start_session(input, function(is_question)
+        return context.get_buffer_context(bufnr, config.get(), is_question)
       end)
     end
   end)
@@ -250,8 +255,8 @@ function M.prompt_with_selection()
   local range = context.get_visual_selection_range()
   vim.ui.input({ prompt = context.format_prompt_label(bufnr, range) }, function(input)
     if input then
-      start_session(input, function()
-        return context.get_visual_context(bufnr, config.get())
+      start_session(input, function(is_question)
+        return context.get_visual_context(bufnr, config.get(), is_question)
       end)
     end
   end)
