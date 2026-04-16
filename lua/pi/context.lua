@@ -7,13 +7,9 @@ local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question usin
 INSTRUCTIONS:
 1. Use the edit_file tool to insert a comment block at line 1 (the very beginning of the file)
 2. Do NOT modify any existing code - only insert the new comment at the top
-3. Use the correct comment syntax for this filetype (e.g., // for JavaScript, # for Python, -- for Lua, etc.)
-4. The comment should be brief (2-4 lines max), straightforward, and use simple language
+3. Use the correct comment syntax for this filetype
+4. The comment should be brief, straightforward, and use simple language
 5. After adding the comment, you are DONE - no further actions needed
-
-EXAMPLE for Lua file:
--- This function calculates the factorial of a number.
--- It uses recursion and returns 1 for the base case.
 
 Now answer the user's question by adding an appropriate comment at the top of their file.]]
 
