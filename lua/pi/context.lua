@@ -2,7 +2,20 @@ local M = {}
 
 local SYSTEM_PROMPT = [[You are running inside the pi.nvim Neovim plugin. The user has sent a request and will not be able to reply back. You must complete the task immediately without asking any questions or requesting clarification. Take action now and do what was asked.]]
 
-local QUESTION_PROMPT_APPENDIX = [[The user is asking a question. You MUST edit the file to add a comment block at the very top (before any existing content) that answers their question. Do NOT modify any existing code - only add the comment at the beginning. The comment should use the appropriate comment syntax for this filetype. Reply with ONLY the comment addition. The answer should be brief and straightforward, using simple language.]]
+local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question using the @question directive. Your task is to ADD A COMMENT at the very top of the file (before line 1) that answers their question.
+
+INSTRUCTIONS:
+1. Use the edit_file tool to insert a comment block at line 1 (the very beginning of the file)
+2. Do NOT modify any existing code - only insert the new comment at the top
+3. Use the correct comment syntax for this filetype (e.g., // for JavaScript, # for Python, -- for Lua, etc.)
+4. The comment should be brief (2-4 lines max), straightforward, and use simple language
+5. After adding the comment, you are DONE - no further actions needed
+
+EXAMPLE for Lua file:
+-- This function calculates the factorial of a number.
+-- It uses recursion and returns 1 for the base case.
+
+Now answer the user's question by adding an appropriate comment at the top of their file.]]
 
 local EMPTY_FILE_NOTE = [[NOTE: This file is currently empty. Please create or populate it directly by applying the necessary edits so pi.nvim can write the file.]]
 
