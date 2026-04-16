@@ -6,11 +6,10 @@ local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question usin
 
 INSTRUCTIONS:
 1. Use the edit_file tool to APPEND a comment block at the end of the file (after all existing content)
-2. Start the comment with a new line, then add the comment block
-3. Do NOT modify any existing code - only append the new comment at the end
-4. Use the correct comment syntax for this filetype
-5. The comment should be brief, straightforward, and use simple language
-6. After adding the comment, you are DONE - no further actions needed
+2. Do NOT modify any existing code - only append the new comment at the end
+3. Use the correct comment syntax for this filetype
+4. The comment should be brief, straightforward, and use simple language
+5. After adding the comment, you are DONE - no further actions needed
 
 Now answer the user's question by adding an appropriate comment at the end of their file.]]
 
