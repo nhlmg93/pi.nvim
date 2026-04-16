@@ -2,7 +2,7 @@ local M = {}
 
 local SYSTEM_PROMPT = [[You are running inside the pi.nvim Neovim plugin. The user has sent a request and will not be able to reply back. You must complete the task immediately without asking any questions or requesting clarification. Take action now and do what was asked.]]
 
-local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question using the @question directive. Your task is to ADD A COMMENT at the end of the file that answers their question.
+local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question using the @? directive. Your task is to ADD A COMMENT at the end of the file that answers their question.
 
 INSTRUCTIONS:
 1. Use the edit_file tool to APPEND a comment block at the end of the file (after all existing content)
@@ -92,10 +92,10 @@ function M.detect_directives(message)
   local is_question = false
   local cleaned_message = message
 
-  -- Check for @question directive
-  if cleaned_message:find("@question") then
+  -- Check for @? directive
+  if cleaned_message:find("@?") then
     is_question = true
-    cleaned_message = cleaned_message:gsub("@question", "")
+    cleaned_message = cleaned_message:gsub("@?", "")
     cleaned_message = cleaned_message:gsub("%s+", " ")
     cleaned_message = cleaned_message:gsub("^%s*", "")
     cleaned_message = cleaned_message:gsub("%s*$", "")
