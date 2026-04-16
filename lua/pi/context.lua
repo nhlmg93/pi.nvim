@@ -2,11 +2,11 @@ local M = {}
 
 local SYSTEM_PROMPT = [[You are running inside the pi.nvim Neovim plugin. The user has sent a request and will not be able to reply back. You must complete the task immediately without asking any questions or requesting clarification. Take action now and do what was asked.]]
 
-local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question using the @question directive. Your task is to ADD A COMMENT at the very top of the file (before line 1) that answers their question.
+local QUESTION_PROMPT_APPENDIX = [[IMPORTANT: The user is asking a question using the @question directive. Your task is to ADD A COMMENT at the very top of the file that answers their question.
 
 INSTRUCTIONS:
-1. Use the edit_file tool to insert a comment block at line 1 (the very beginning of the file)
-2. Do NOT modify any existing code - only insert the new comment at the top
+1. Use the edit_file tool to PREPEND a comment block at the very beginning of the file (before all existing content)
+2. Do NOT modify any existing code - only prepend the new comment at the top
 3. Use the correct comment syntax for this filetype
 4. The comment should be brief, straightforward, and use simple language
 5. After adding the comment, you are DONE - no further actions needed
