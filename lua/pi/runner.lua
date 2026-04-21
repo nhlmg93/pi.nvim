@@ -32,7 +32,7 @@ local function normalize(event)
     return { type = "tool_end", tool = event.toolName or "unknown" }
   end
 
-  if event.type == "agent_end" or event.type == "turn_end" then
+  if event.type == "agent_end" then
     return { type = "done" }
   end
 
